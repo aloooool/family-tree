@@ -203,14 +203,11 @@ class FamilyTree:
 if __name__ == "__main__":
     tree = FamilyTree(root_name="خلاف")
 
-    # Add members directly without managing IDs
     tree.add_person("محمد عبدالجليل محمود خلاف")
     tree.add_person("الحسن محمد عبدالجليل محمود خلاف")
     tree.add_person("الحسين محمد عبدالجليل محمود خلاف")
     tree.add_person("صلاح محمد عبدالجليل محمود خلاف")
     tree.add_person("حمدى محمد عبدالجليل محمود خلاف")
     tree.add_person("عمر الحسن محمد عبدالجليل محمود خلاف")
-    
     tree.add_person("علي الحسن محمد عبدالجليل محمود خلاف")
-
     tree.visualize("family_tree.html")
