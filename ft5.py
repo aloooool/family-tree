@@ -8,7 +8,7 @@ class FamilyTree:
         self.graph = nx.DiGraph()
         self.graph.add_node(self.root_name)
 
-    def add_person(self, person_name: str, son_of: str = None):
+    def add_person(self, person_name: str):
         """
         Adds a person using their full name as the unique node identifier.
         """
@@ -16,10 +16,6 @@ class FamilyTree:
         self.graph.add_node(person_name)
 
         # 1. Direct father link if father's full name is provided
-        if son_of and str(son_of).strip() != "nan":
-            father_name = str(son_of).strip()
-            self.graph.add_edge(father_name, person_name)
-            return
 
         # 2. Auto-parse father-child relationships directly from full name
         parts = person_name.split()
@@ -35,14 +31,13 @@ class FamilyTree:
             current_child = father_name
             parts = parts[1:]
 
-    def load_from_excel(self, file_path: str, name_col: str = "Name", father_col: str = None):
+    def load_from_excel(self, file_path: str, name_col: str = "Name"):
         """Loads members directly from an Excel/CSV file."""
         df = pd.read_excel(file_path) if file_path.endswith('.xlsx') else pd.read_csv(file_path)
         
         for _, row in df.iterrows():
             p_name = str(row[name_col])
-            f_name = str(row[father_col]) if father_col and father_col in row else None
-            self.add_person(person_name=p_name, son_of=f_name)
+            self.add_person(person_name=p_name)
 
     def visualize(self, output_filename="family_tree.html"):
         """Generates visual graph with Yellow Search and Green Lineage Path."""
@@ -215,7 +210,7 @@ if __name__ == "__main__":
     tree.add_person("صلاح محمد عبدالجليل محمود خلاف")
     tree.add_person("حمدى محمد عبدالجليل محمود خلاف")
     tree.add_person("عمر الحسن محمد عبدالجليل محمود خلاف")
-    # Explicit son_of connection using full name
+    
     tree.add_person("علي الحسن محمد عبدالجليل محمود خلاف")
 
     tree.visualize("family_tree.html")
